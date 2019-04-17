@@ -142,7 +142,7 @@ class Tests(unittest.TestCase):
     def test_ultimate_integration(self):
         passed_array = [1,2,3,4,5,6,7,8,81,65,41,99,312,32,61,23,654,23,11,58,33,123,34,12]
         element = linear_selection(passed_array, 13)
-        expectedElement = 33
+        expectedElement = 32
 
         self.assertEqual(element, expectedElement, "Didn't match expected element in ultimate integration test")
 
