@@ -86,14 +86,22 @@ def partition_set(values, median):
     
     return lesser, greater
 
-def main():
-    print('If you want to customize the numbers in the list, please edit the {}numbers.txt{} file.'.format(BOLD,END))
-    fileName = open("numbers.txt", "r")
+def get_values_from_file(path):
+    fileName = open(path, "r")
     values = []
     for val in fileName.read().split():
         values.append(int(val))
         fileName.close()
+
+    return values
+
+def main():
+    print('If you want to customize the numbers in the list, please edit the {}numbers.txt{} file.'.format(BOLD,END))
+
+    values = get_values_from_file("numbers.txt")
+    
     k = int(input('Type the k for the k-th smallest element in the list: '))
+
     result = linear_selection(values,k)
     print(str(result))
 
