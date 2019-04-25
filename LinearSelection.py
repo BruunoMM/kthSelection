@@ -6,7 +6,7 @@ END = '\033[0m'
 def linear_selection(values, k):
     size = len(values)
     if k < 0 or k > size:
-        raise Exception('Parameter k out of limits')
+        raise Exception('Parameter k out of limits -> K: {}, SIZE: {}'.format(k, size))
     if size < 5:
         values.sort()
         return values[k-1]
@@ -15,8 +15,8 @@ def linear_selection(values, k):
     # find the median of each group
     medians_array = find_medians_array(parts, size)
     # find the median of medians
-    total_medians = ceil(len(medians_array) / 2)
-    median = linear_selection(medians_array, total_medians)
+    all_median = len(medians_array) // 2
+    median = linear_selection(medians_array, all_median)
 
     # partition original data around the median of medians
     lesser, greater = partition_set(values, median)
@@ -84,8 +84,9 @@ def partition_set(values, median):
         elif value > median:
             greater.append(value)
     
-    return lesser, greater
+    return list(set(lesser)), list(set(greater))
 
+# read values from numbers file
 def get_values_from_file(path):
     fileName = open(path, "r")
     values = []

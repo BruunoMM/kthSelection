@@ -16,23 +16,23 @@ def generate_instances(size):
 def get_linear_execution_time_for(values):
     instance_size = len(values)
 
-    kLinearStart = time.time()
+    kLinear_start = time.time()
     k = instance_size // 2
     _ = LinearSelection.linear_selection(values, k)
-    kLinearEnd = time.time()
+    kLinear_end = time.time()
 
-    return kLinearEnd - kLinearStart
+    return kLinear_end - kLinear_start
 
 # uses sort selection with bubble sort to find kth element and measure its execution time
 def get_bubble_execution_time_for(values):
     instance_size = len(values)
 
-    kBubbleStart = time.time()
+    kBubble_start = time.time()
     k = instance_size // 2
     _ = BubbleSort.sort_selection(values, k)
-    kBubbleEnd = time.time()
+    kBubble_end = time.time()
 
-    return kBubbleEnd - kBubbleStart
+    return kBubble_end - kBubble_start
 
 def prepare_file():
     file = open('ComparisonResults.csv', 'w')
@@ -41,21 +41,23 @@ def prepare_file():
 
 
 # write the results to a CSV file
-def save_to_file(linearTime, bubbleTime):
+def save_to_file(linear_time, bubble_time):
     file = open('ComparisonResults.csv', 'a+')
-    file.write('{},{}\n'.format(linearTime,bubbleTime))
+    file.write('{},{}\n'.format(linear_time,bubble_time))
     file.close()
 
 STEP_SIZE = 1000
 # runs both 
 def comparison():
     prepare_file()
+    counter = 0
     for i in range(1,11):
-        for _ in range(1):
+        for _ in range(10):
             values = generate_instances(STEP_SIZE*i)
-            linearTime = get_linear_execution_time_for(values)
-            bubbleTime = get_bubble_execution_time_for(values)
-            print('Linear Selection time: {}s | BubbleSort Selection time: {}s'.format(linearTime, bubbleTime))
-            save_to_file(linearTime, bubbleTime)
+            linear_time = get_linear_execution_time_for(values)
+            bubble_time = get_bubble_execution_time_for(values)
+            counter += 1
+            print('{}. Linear Selection time: {}s | BubbleSort Selection time: {}s'.format(counter, linear_time, bubble_time))
+            save_to_file(linear_time, bubble_time)
 
 comparison()
